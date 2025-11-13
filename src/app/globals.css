@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-bangla, var(--font-geist-sans));
+  --font-mono: var(--font-geist-mono);
+  --color-nav: #fff6f6;
+  --color-border: #f0c9d0;
+  --color-card: #ffffff;
+  --color-text: #344054;
+  --color-highlight: #d02b49;
+  --color-cta: #f23d5d;
+  --color-btn-text: #ffffff;
+  --shadow-nav: 0 8px 24px rgba(255, 105, 135, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-bangla), var(--font-geist-sans), Arial, Helvetica,
+    sans-serif;
+}
+
+.bg-nav {
+  background: var(--color-nav);
+}
+
+.shadow-nav {
+  box-shadow: var(--shadow-nav);
+}
+
+.border-border {
+  border-color: var(--color-border);
+}
+
+.bg-cardBg {
+  background: var(--color-card);
+}
+
+.text-text {
+  color: var(--color-text);
+}
+
+.text-highlighted {
+  color: var(--color-highlight);
+}
+
+.border-highlighted {
+  border-color: var(--color-highlight);
+}
+
+.bg-cta {
+  background: var(--color-cta);
+}
+
+.text-btn-text {
+  color: var(--color-btn-text);
+}
