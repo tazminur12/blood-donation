@@ -19,6 +19,7 @@ import {
   FaBriefcase,
   FaEdit,
   FaAward,
+  FaConciergeBell,
 } from "react-icons/fa";
 import { MdSpaceDashboard } from "react-icons/md";
 import { HiOutlineDocumentText } from "react-icons/hi";
@@ -169,6 +170,12 @@ export default function Sidebar({ variant = "desktop", onNavigate }) {
           icon={MdSpaceDashboard}
           onClick={itemClick}
         />
+        <NavItem
+          href="/dashboard/service"
+          label="All Service"
+          icon={FaConciergeBell}
+          onClick={itemClick}
+        />
 
         {/* Admin Navigation */}
         {isAdmin && (
@@ -251,6 +258,16 @@ export default function Sidebar({ variant = "desktop", onNavigate }) {
             <NavItem
               href="/dashboard/admin/reports"
               label="Reports"
+              icon={FaFileAlt}
+              onClick={itemClick}
+            />
+
+            <div className="text-xs uppercase px-4 mt-4 mb-1 text-slate-500">
+              Content Management
+            </div>
+            <NavItem
+              href="/dashboard/admin/blogs"
+              label="Blogs"
               icon={FaFileAlt}
               onClick={itemClick}
             />

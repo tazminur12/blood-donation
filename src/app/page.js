@@ -1,6 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Banner from "@/components/Banner";
 import Featured from "@/components/Featured";
+import RecentRequests from "@/components/RecentRequests";
+import OurServices from "@/components/OurServices";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -9,7 +11,9 @@ export default function Home() {
       <Navbar />
       <main className="space-y-16">
         <Banner />
+        <RecentRequests />
         <Featured />
+        <OurServices />
       </main>
       <Footer />
     </div>

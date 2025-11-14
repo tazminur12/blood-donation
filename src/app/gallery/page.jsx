@@ -1,0 +1,239 @@
+"use client";
+
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import {
+  FaHeartbeat,
+  FaUsers,
+  FaHandsHelping,
+  FaBan,
+  FaFacebook,
+  FaLink,
+  FaCheckCircle,
+  FaTint,
+  FaHospital,
+  FaTree,
+  FaHandHoldingHeart,
+  FaShieldVirus,
+  FaHandsWash,
+  FaBox,
+  FaChartLine,
+  FaAward,
+} from "react-icons/fa";
+
+export default function GalleryPage() {
+  const objectives = [
+    {
+      icon: <FaTint className="text-4xl text-red-600" />,
+      title: "মুমূর্ষু রোগীর জীবন বাঁচাতে বিনামূল্যে রক্তদান",
+      description: "জরুরী পরিস্থিতিতে রোগীদের জন্য রক্ত সরবরাহ নিশ্চিত করা",
+    },
+    {
+      icon: <FaHandsHelping className="text-4xl text-blue-600" />,
+      title: "অসহায়, ছিন্নমূল মানুষের পাশে দাঁড়ানো",
+      description: "সমাজের অসহায় মানুষের পাশে থেকে সহায়তা প্রদান",
+    },
+    {
+      icon: <FaBan className="text-4xl text-green-600" />,
+      title: "মাদকমুক্ত সমাজ বিনির্মানে আমরা সর্বদাই বদ্ধপরিকর",
+      description: "মাদকমুক্ত সমাজ গঠনে সচেতনতামূলক কার্যক্রম পরিচালনা",
+    },
+  ];
+
+  const achievements = [
+    {
+      icon: <FaBox className="text-3xl text-orange-500" />,
+      title: "বিভিন্ন ধর্মীয় উৎসবে গরীব দুঃখীদের মাঝে ত্রাণ বিতরন",
+    },
+    {
+      icon: <FaHospital className="text-3xl text-red-500" />,
+      title: "বিভিন্ন স্কুুল-কলেজ ও জনসাধারণের মাঝে ফ্রীতে রক্তের গ্রুপ নির্ণয় ক্যাম্পেইন",
+    },
+    {
+      icon: <FaChartLine className="text-3xl text-blue-500" />,
+      title: "গত দুই বছরে প্রায় ৩০০০ হাজার মানুষের ফ্রীতে রক্তের গ্রুপ নির্ণয় সম্পন্নকরণ",
+    },
+    {
+      icon: <FaHeartbeat className="text-3xl text-pink-500" />,
+      title: "থ্যালাসেমিয়া বিষয়ক জনসচেতনতামূলক কর্মসূচি",
+    },
+    {
+      icon: <FaHospital className="text-3xl text-green-500" />,
+      title: "বন্যা কবলিত এলাকায় ফ্রী মেডিকেল ক্যাম্প ও ঔষধ সামগ্রী বিতরণ (ইভেন্ট ২০১৯)",
+    },
+    {
+      icon: <FaTree className="text-3xl text-green-600" />,
+      title: "বৃক্ষরোপণ কর্মসূচি (ইভেন্ট ২০১৮)",
+    },
+    {
+      icon: <FaHandHoldingHeart className="text-3xl text-red-500" />,
+      title: "এতিম ছেলে ওয়াদুদ ভাইয়ের চিকিৎসার জন্য অর্থ সংগ্রহ (ইভেন্ট ২০১৮)",
+    },
+    {
+      icon: <FaHandHoldingHeart className="text-3xl text-pink-500" />,
+      title: "ছোট বোন ফাতেমার চিকিৎসার জন্য অর্থ সংগ্রহ (ইভেন্ট ২০১৯)",
+    },
+    {
+      icon: <FaHandHoldingHeart className="text-3xl text-blue-500" />,
+      title: "স্বেচ্ছাসেবী অন্তরা জাহান আপুর চিকিৎসার জন্য অর্থ সংগ্রহ (ইভেন্ট ২০১৯)",
+    },
+    {
+      icon: <FaHospital className="text-3xl text-purple-500" />,
+      title: "দিনমজুর মোজাম্মেল ভাইয়ের এপেন্ডিসাইট অপারেশন ও চিকিৎসার জন্য অর্থ সংগ্রহ (ইভেন্ট ২০২০)",
+    },
+    {
+      icon: <FaShieldVirus className="text-3xl text-yellow-500" />,
+      title: "বর্তমান সময়ে করোনা ভাইরাসের ছোবল থেকে রক্ষা পেতে জনসচেতনতামূলক কর্মসূচি হাতে নিয়েছে সংগঠনটি",
+    },
+    {
+      icon: <FaHandsWash className="text-3xl text-cyan-500" />,
+      title: "মহামারী করোনা ভাইরাস থেকে নিরাপদ থাকতে জনসাধারণের মাঝে মাস্ক, সাবান-হ্যান্ডস্যানেটাইজার, হ্যান্ড বিলসহ ইত্যাদি বিতরণ",
+    },
+    {
+      icon: <FaBox className="text-3xl text-indigo-500" />,
+      title: "মহামারীর এই দুর্দিনে অসহায় মানুষের মাঝে ত্রাণ বিতরণ",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-red-50 to-pink-50">
+      <Navbar />
+
+      {/* Hero Section */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-red-600 via-rose-600 to-pink-600">
+        <div className="absolute inset-0 bg-black opacity-20"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <FaHeartbeat className="text-5xl text-white animate-pulse" />
+              <h1 className="text-4xl md:text-5xl font-bold text-white">
+                গোবিন্দগঞ্জ স্বেচ্ছায় রক্তদান সংগঠন
+              </h1>
+            </div>
+            <p className="text-xl md:text-2xl text-red-100 font-semibold mb-2">
+              (G.S.R.S) গোবিন্দগঞ্জ, গাইবান্ধা
+            </p>
+            <div className="mt-6 p-4 bg-white/20 backdrop-blur-sm rounded-lg inline-block">
+              <p className="text-lg md:text-xl text-white font-medium italic">
+                "মুমূর্ষু রোগীর প্রাণের টানে, এগিয়ে আসুন রক্তদানে।"
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* About Section */}
+        <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
+          <h2 className="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+            <FaUsers className="text-red-600" />
+            আমাদের সম্পর্কে
+          </h2>
+          <p className="text-gray-700 text-lg leading-relaxed mb-4">
+            <strong className="text-red-600">"গোবিন্দগঞ্জ স্বেচ্ছায় রক্তদান সংগঠন"</strong> একটি সম্পূর্ণ অরাজনৈতিক, অলাভজনক ও স্বেচ্ছাসেবী সংগঠন। শুরুর দিকে গোবিন্দগঞ্জবাসীর রক্তের প্রয়োজনে রক্ত সরবরাহ, বিনামূল্যে রক্তের গ্রুপ নির্ণয়ে কাজ করার পাশাপাশি রক্তদানে মানুষদের উৎসাহিত করলেও বর্তমানে বিভিন্ন সামাজিক উন্নয়নমূলক কর্মকান্ডে সম্পৃক্ত হয়েছে আমাদের প্রাণের এই সংগঠনটি। এছাড়াও রোগী এবং রক্তদাতা উভয়ের জন্য কার্যকরী একটি প্লাটফর্ম হিসেবে কাজ করে যাচ্ছে এটি।
+          </p>
+        </div>
+
+        {/* Objectives Section */}
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center flex items-center justify-center gap-3">
+            <FaAward className="text-red-600" />
+            আমাদের উদ্দেশ্য
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {objectives.map((objective, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+              >
+                <div className="flex justify-center mb-4">{objective.icon}</div>
+                <h3 className="text-xl font-bold text-gray-800 mb-3 text-center">
+                  {objective.title}
+                </h3>
+                <p className="text-gray-600 text-center">{objective.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Achievements Section */}
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center flex items-center justify-center gap-3">
+            <FaCheckCircle className="text-green-600" />
+            আমাদের সম্পন্নকৃত কাজসমূহ
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {achievements.map((achievement, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">{achievement.icon}</div>
+                  <div className="flex-1">
+                    <p className="text-gray-700 font-medium leading-relaxed">
+                      {achievement.title}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Statistics Section */}
+        <div className="bg-gradient-to-r from-red-600 to-rose-600 rounded-xl shadow-lg p-8 md:p-12 mb-8 text-white">
+          <div className="text-center">
+            <FaTint className="text-6xl mx-auto mb-4 opacity-80" />
+            <h2 className="text-3xl font-bold mb-4">আমাদের সাফল্য</h2>
+            <p className="text-xl md:text-2xl leading-relaxed">
+              আল্লাহর অশেষ কৃপায় আমরা গত <strong className="text-yellow-300">২ বছর ৬ মাস</strong>ে অত্র সংগঠনের মাধ্যমে প্রায়{" "}
+              <strong className="text-yellow-300">৫ হাজারের অধিক</strong> মানুষকে রক্ত সংগ্রহ করে দিতে সক্ষম হয়েছি।
+            </p>
+          </div>
+        </div>
+
+        {/* Social Media Links */}
+        <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
+          <h2 className="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+            <FaFacebook className="text-blue-600" />
+            আমাদের সাথে যুক্ত থাকুন
+          </h2>
+          <div className="space-y-4">
+            <a
+              href="https://bit.ly/2MD8v2T"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors duration-200 group"
+            >
+              <FaLink className="text-2xl text-blue-600" />
+              <div>
+                <p className="font-semibold text-gray-800 group-hover:text-blue-600">
+                  ফেসবুক গ্রুপ
+                </p>
+                <p className="text-sm text-gray-600">https://bit.ly/2MD8v2T</p>
+              </div>
+            </a>
+            <a
+              href="https://www.facebook.com/gsrs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors duration-200 group"
+            >
+              <FaFacebook className="text-2xl text-blue-600" />
+              <div>
+                <p className="font-semibold text-gray-800 group-hover:text-blue-600">
+                  ফেসবুক পেইজ
+                </p>
+                <p className="text-sm text-gray-600">https://www.facebook.com/gsrs</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
+    </div>
+  );
+}
+

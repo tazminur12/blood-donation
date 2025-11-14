@@ -10,6 +10,8 @@ const menu = [
   { name: "All Donor", path: "/donors" },
   { name: "Request", path: "/request" },
   { name: "Blog", path: "/blog" },
+  { name: "Our Gobindhagonj", path: "/service" },
+  { name: "Our Gallery", path: "/gallery" },
 ];
 
 const createIsActive = (pathname) => (targetPath) => {
@@ -60,7 +62,7 @@ export default function Navbar() {
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between pl-2 pr-4 sm:pl-3 sm:pr-6 lg:h-20 lg:pl-4 lg:pr-8">
         <Link href="/" className="flex items-center gap-2 group" onClick={handleNavLinkClick}>
           <span className="text-xl font-black tracking-tight text-red-600 transition-transform duration-200 group-hover:scale-105 lg:text-2xl">
-            গোবিন্দগঞ্জ স্বেচ্ছায় রক্তদান সংগঠন (G.S.R.S)
+            G.S.R.S
           </span>
           <span className="text-2xl transition-transform duration-200 group-hover:rotate-180">
             🩸
@@ -89,31 +91,28 @@ export default function Navbar() {
             <div className="relative" ref={userMenuRef}>
               <button
                 onClick={() => setIsUserMenuOpen((prev) => !prev)}
-                className="flex items-center gap-3 rounded-full bg-white/80 px-2 py-1 pr-3 text-text shadow ring-1 ring-border transition hover:bg-rose-50"
+                className="relative rounded-full transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
                 aria-haspopup="menu"
                 aria-expanded={isUserMenuOpen}
               >
                 {user.photoURL ? (
-                  <span className="relative">
+                  <>
                     <img
                       src={user.photoURL}
                       alt={user.displayName || "User avatar"}
-                      className="h-10 w-10 rounded-full border-2 border-border object-cover shadow-sm transition-colors duration-200 hover:border-rose-500"
+                      className="h-12 w-12 rounded-full border-2 border-pink-300 object-cover shadow-sm transition-colors duration-200"
                     />
                     <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full border-2 border-white bg-green-500" />
-                  </span>
+                    <span className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-white bg-rose-100 shadow-sm">
+                      <ChevronDownIcon
+                        className={`h-3 w-3 text-gray-600 transition-transform duration-200 ${
+                          isUserMenuOpen ? "rotate-180" : "rotate-0"
+                        }`}
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </>
                 ) : null}
-                <span className="text-sm font-medium">
-                  {user.displayName || "User"}
-                </span>
-                <span className="flex h-6 w-6 items-center justify-center rounded-full border border-border bg-cardBg shadow-sm">
-                  <ChevronDownIcon
-                    className={`h-3 w-3 text-gray-600 transition-transform duration-200 ${
-                      isUserMenuOpen ? "rotate-180" : "rotate-0"
-                    }`}
-                    aria-hidden="true"
-                  />
-                </span>
               </button>
 
               {isUserMenuOpen && (
