@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LoginForm from "@/components/LoginForm";
@@ -13,7 +14,9 @@ export default function LoginPage() {
     <div className="min-h-screen bg-rose-50/40">
       <Navbar />
       <main className="py-12">
-        <LoginForm />
+        <Suspense fallback={<div className="text-center">লোড হচ্ছে...</div>}>
+          <LoginForm />
+        </Suspense>
       </main>
       <Footer />
     </div>

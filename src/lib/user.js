@@ -102,6 +102,15 @@ export async function verifyPassword(password, hashedPassword) {
   }
 }
 
+export async function hashPassword(password) {
+  try {
+    return await bcrypt.hash(password, 12);
+  } catch (error) {
+    console.error("Error hashing password:", error);
+    throw error;
+  }
+}
+
 export async function updateUser(email, updates) {
   try {
     const client = await clientPromise;
