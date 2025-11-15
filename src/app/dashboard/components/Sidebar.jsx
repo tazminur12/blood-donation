@@ -20,6 +20,8 @@ import {
   FaEdit,
   FaAward,
   FaConciergeBell,
+  FaImage,
+  FaUsersCog,
 } from "react-icons/fa";
 import { MdSpaceDashboard } from "react-icons/md";
 import { HiOutlineDocumentText } from "react-icons/hi";
@@ -207,6 +209,12 @@ export default function Sidebar({ variant = "desktop", onNavigate }) {
               icon={FaUserShield}
               onClick={itemClick}
             />
+            <NavItem
+              href="/dashboard/admin/committee"
+              label="Committee"
+              icon={FaUsersCog}
+              onClick={itemClick}
+            />
 
             <div className="text-xs uppercase px-4 mt-4 mb-1 text-slate-500">
               Blood Management
@@ -269,6 +277,12 @@ export default function Sidebar({ variant = "desktop", onNavigate }) {
               href="/dashboard/admin/blogs"
               label="Blogs"
               icon={FaFileAlt}
+              onClick={itemClick}
+            />
+            <NavItem
+              href="/dashboard/admin/media"
+              label="Media"
+              icon={FaImage}
               onClick={itemClick}
             />
 

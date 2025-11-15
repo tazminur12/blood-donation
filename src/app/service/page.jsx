@@ -42,6 +42,13 @@ const allServices = [
     link: "/gobindhagonj",
   },
   {
+    id: 1.5,
+    title: "Gobindhagonj News",
+    description: "গোবিন্দগঞ্জের সর্বশেষ সংবাদ ও খবর জানুন।",
+    icon: <FaNewspaper className="text-4xl text-purple-600" />,
+    link: "/gobindhagonj-news",
+  },
+  {
     id: 2,
     title: "হাসপাতালের তথ্য",
     description: "বিভিন্ন হাসপাতাল ও ক্লিনিকের ঠিকানা ও যোগাযোগ মাধ্যম।",

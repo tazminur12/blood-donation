@@ -34,10 +34,10 @@ import {
 const allServices = [
   {
     id: 1,
-    title: "রক্তদাতা খুঁজুন",
-    description: "গোবিন্দগঞ্জের রক্তদাতা খুঁজুন মাত্র এক ক্লিকে।",
-    icon: <FaHeartbeat className="text-4xl text-red-500" />,
-    link: "/donors",
+    title: "Gobindhagonj News",
+    description: "গোবিন্দগঞ্জের সর্বশেষ সংবাদ ও খবর জানুন।",
+    icon: <FaNewspaper className="text-4xl text-purple-600" />,
+    link: "/dashboard/admin/gobindhagonj-news",
   },
   {
     id: 2,

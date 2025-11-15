@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Hind_Siliguri } from "next/font/google";
+import { Geist, Geist_Mono, Tiro_Bangla } from "next/font/google";
 import "./globals.css";
 import SessionProvider from "@/components/SessionProvider";
 import AuthProvider from "@/providers/AuthProvider";
@@ -13,10 +13,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const hindSiliguri = Hind_Siliguri({
+const tiroBangla = Tiro_Bangla({
   variable: "--font-bangla",
   subsets: ["latin", "bengali"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400"],
   display: "swap",
 });
 
@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${hindSiliguri.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${tiroBangla.variable} antialiased`}
       >
         <SessionProvider>
           <AuthProvider>{children}</AuthProvider>
