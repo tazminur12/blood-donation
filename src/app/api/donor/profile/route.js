@@ -35,6 +35,22 @@ export async function GET(request) {
       );
     }
 
+    // Check if user has an approved member application
+    // First try to match by email (more reliable), then by name (backward compatibility)
+    const memberApplicationsCollection = db.collection("memberApplications");
+    let approvedApplication = await memberApplicationsCollection.findOne({
+      userEmail: userEmail,
+      status: "approved",
+    });
+    
+    // If not found by email, try by name (for old applications without email)
+    if (!approvedApplication && user.name) {
+      approvedApplication = await memberApplicationsCollection.findOne({
+        name: user.name.trim(),
+        status: "approved",
+      });
+    }
+
     // Format user data
     const profile = {
       id: user._id.toString(),
@@ -54,6 +70,7 @@ export async function GET(request) {
       isAvailable: user.isAvailable !== false, // Default to true
       lastLogin: user.lastLogin || null,
       badges: user.badges || [],
+      isVerified: !!approvedApplication, // True if approved member application exists
     };
 
     return NextResponse.json({ profile }, { status: 200 });
@@ -124,6 +141,22 @@ export async function PUT(request) {
       { projection: { password: 0 } }
     );
 
+    // Check if user has an approved member application
+    // First try to match by email (more reliable), then by name (backward compatibility)
+    const memberApplicationsCollection = db.collection("memberApplications");
+    let approvedApplication = await memberApplicationsCollection.findOne({
+      userEmail: userEmail,
+      status: "approved",
+    });
+    
+    // If not found by email, try by name (for old applications without email)
+    if (!approvedApplication && updatedUser.name) {
+      approvedApplication = await memberApplicationsCollection.findOne({
+        name: updatedUser.name.trim(),
+        status: "approved",
+      });
+    }
+
     const profile = {
       id: updatedUser._id.toString(),
       name: updatedUser.name || null,
@@ -142,6 +175,7 @@ export async function PUT(request) {
       isAvailable: updatedUser.isAvailable !== false,
       lastLogin: updatedUser.lastLogin || null,
       badges: updatedUser.badges || [],
+      isVerified: !!approvedApplication, // True if approved member application exists
     };
 
     return NextResponse.json(

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import VolunteerSection from "@/components/VolunteerSection";
 import {
   FaHeartbeat,
   FaUsers,
@@ -445,6 +446,11 @@ export default function GalleryPage() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Volunteer Section */}
+        <div className="mt-16 mb-12">
+          <VolunteerSection />
         </div>
       </div>
 

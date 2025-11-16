@@ -22,6 +22,7 @@ import {
   FaConciergeBell,
   FaImage,
   FaUsersCog,
+  FaClipboardList,
 } from "react-icons/fa";
 import { MdSpaceDashboard } from "react-icons/md";
 import { HiOutlineDocumentText } from "react-icons/hi";
@@ -157,7 +158,7 @@ export default function Sidebar({ variant = "desktop", onNavigate }) {
             <div className="flex-1">
               <h1 className="text-lg font-bold text-rose-600">Blood Donation</h1>
               <p className="text-[10px] text-slate-500 -mt-1 font-light">
-                Life Saving Platform
+                জীবন রক্ষাকারী প্ল্যাটফর্ম
               </p>
             </div>
           </div>
@@ -165,16 +166,16 @@ export default function Sidebar({ variant = "desktop", onNavigate }) {
       </div>
 
       <nav className="px-2 py-4 space-y-1 overflow-y-auto flex-1">
-        <div className="text-xs uppercase px-4 mb-1 text-slate-500">Overview</div>
+        <div className="text-xs uppercase px-4 mb-1 text-slate-500">সারসংক্ষেপ</div>
         <NavItem
           href="/dashboard"
-          label="Dashboard"
+          label="ড্যাশবোর্ড"
           icon={MdSpaceDashboard}
           onClick={itemClick}
         />
         <NavItem
           href="/dashboard/service"
-          label="All Service"
+          label="সব সেবা"
           icon={FaConciergeBell}
           onClick={itemClick}
         />
@@ -183,121 +184,127 @@ export default function Sidebar({ variant = "desktop", onNavigate }) {
         {isAdmin && (
           <>
             <div className="text-xs uppercase px-4 mt-4 mb-1 text-slate-500">
-              User Management
+              ব্যবহারকারী ব্যবস্থাপনা
             </div>
             <NavItem
               href="/dashboard/admin/users"
-              label="All Users"
+              label="সব ব্যবহারকারী"
               icon={FaUsers}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/admin/donors"
-              label="Donors"
+              label="রক্তদাতা"
               icon={FaUser}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/admin/volunteers"
-              label="Volunteers"
+              label="স্বেচ্ছাসেবক"
               icon={RiTeamLine}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/admin/roles"
-              label="Role Management"
+              label="ভূমিকা ব্যবস্থাপনা"
               icon={FaUserShield}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/admin/committee"
-              label="Committee"
+              label="কমিটি"
               icon={FaUsersCog}
+              onClick={itemClick}
+            />
+            <NavItem
+              href="/dashboard/admin/member-applications"
+              label="সদস্য আবেদন"
+              icon={FaClipboardList}
               onClick={itemClick}
             />
 
             <div className="text-xs uppercase px-4 mt-4 mb-1 text-slate-500">
-              Blood Management
+              রক্ত ব্যবস্থাপনা
             </div>
             <NavItem
               href="/dashboard/admin/requests"
-              label="Blood Requests"
+              label="রক্ত অনুরোধ"
               icon={HiOutlineDocumentText}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/admin/inventory"
-              label="Inventory"
+              label="সামগ্রী"
               icon={TbPackage}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/admin/appointments"
-              label="Appointments"
+              label="নিয়োগ"
               icon={FaCheckCircle}
               onClick={itemClick}
             />
 
             <div className="text-xs uppercase px-4 mt-4 mb-1 text-slate-500">
-              Campaigns & Events
+              ক্যাম্পেইন এবং ইভেন্ট
             </div>
             <NavItem
               href="/dashboard/admin/campaigns"
-              label="Campaigns"
+              label="ক্যাম্পেইন"
               icon={AiOutlinePlusCircle}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/admin/drives"
-              label="Blood Drives"
+              label="রক্তদান অভিযান"
               icon={FaBriefcase}
               onClick={itemClick}
             />
 
             <div className="text-xs uppercase px-4 mt-4 mb-1 text-slate-500">
-              Analytics & Reports
+              বিশ্লেষণ এবং প্রতিবেদন
             </div>
             <NavItem
               href="/dashboard/admin/analytics"
-              label="Analytics"
+              label="বিশ্লেষণ"
               icon={IoMdAnalytics}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/admin/reports"
-              label="Reports"
+              label="প্রতিবেদন"
               icon={FaFileAlt}
               onClick={itemClick}
             />
 
             <div className="text-xs uppercase px-4 mt-4 mb-1 text-slate-500">
-              Content Management
+              কনটেন্ট ব্যবস্থাপনা
             </div>
             <NavItem
               href="/dashboard/admin/blogs"
-              label="Blogs"
+              label="ব্লগ"
               icon={FaFileAlt}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/admin/media"
-              label="Media"
+              label="মিডিয়া"
               icon={FaImage}
               onClick={itemClick}
             />
 
             <div className="text-xs uppercase px-4 mt-4 mb-1 text-slate-500">
-              System
+              সিস্টেম
             </div>
             <NavItem
               href="/dashboard/admin/settings"
-              label="System Settings"
+              label="সিস্টেম সেটিংস"
               icon={FaCog}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/admin/notifications"
-              label="Notifications"
+              label="বিজ্ঞপ্তি"
               icon={FaBell}
               onClick={itemClick}
             />
@@ -308,61 +315,61 @@ export default function Sidebar({ variant = "desktop", onNavigate }) {
         {isDonor && (
           <>
             <div className="text-xs uppercase px-4 mt-4 mb-1 text-slate-500">
-              Donation
+              দান
             </div>
             <NavItem
               href="/dashboard/donor/profile"
-              label="My Profile"
+              label="আমার প্রোফাইল"
               icon={FaUserTie}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/donor/appointments"
-              label="My Appointments"
+              label="আমার নিয়োগ"
               icon={FaCheckCircle}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/donor/history"
-              label="Donation History"
+              label="দানের ইতিহাস"
               icon={FaHistory}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/donor/book-appointment"
-              label="Book Appointment"
+              label="নিয়োগ বুক করুন"
               icon={AiOutlinePlusCircle}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/donor/certificates"
-              label="Certificates"
+              label="সনদপত্র"
               icon={FaAward}
               onClick={itemClick}
             />
 
             <div className="text-xs uppercase px-4 mt-4 mb-1 text-slate-500">
-              Information
+              তথ্য
             </div>
             <NavItem
               href="/dashboard/donor/requests"
-              label="Blood Requests"
+              label="রক্ত অনুরোধ"
               icon={HiOutlineDocumentText}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/donor/campaigns"
-              label="Campaigns"
+              label="ক্যাম্পেইন"
               icon={FaBriefcase}
               onClick={itemClick}
             />
 
             <div className="text-xs uppercase px-4 mt-4 mb-1 text-slate-500">
-              Settings
+              সেটিংস
             </div>
             <NavItem
               href="/dashboard/donor/settings"
-              label="Account Settings"
+              label="অ্যাকাউন্ট সেটিংস"
               icon={FaCog}
               onClick={itemClick}
             />
@@ -373,55 +380,55 @@ export default function Sidebar({ variant = "desktop", onNavigate }) {
         {isVolunteer && (
           <>
             <div className="text-xs uppercase px-4 mt-4 mb-1 text-slate-500">
-              Volunteer
+              স্বেচ্ছাসেবক
             </div>
             <NavItem
               href="/dashboard/volunteer/profile"
-              label="My Profile"
+              label="আমার প্রোফাইল"
               icon={FaUserTie}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/volunteer/events"
-              label="Events"
+              label="ইভেন্ট"
               icon={FaBriefcase}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/volunteer/campaigns"
-              label="Campaigns"
+              label="ক্যাম্পেইন"
               icon={AiOutlinePlusCircle}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/volunteer/history"
-              label="Activity History"
+              label="কার্যক্রমের ইতিহাস"
               icon={FaHistory}
               onClick={itemClick}
             />
 
             <div className="text-xs uppercase px-4 mt-4 mb-1 text-slate-500">
-              Communication
+              যোগাযোগ
             </div>
             <NavItem
               href="/dashboard/volunteer/messages"
-              label="Messages"
+              label="বার্তা"
               icon={BiMessageSquareDots}
               onClick={itemClick}
             />
             <NavItem
               href="/dashboard/volunteer/notifications"
-              label="Notifications"
+              label="বিজ্ঞপ্তি"
               icon={FaBell}
               onClick={itemClick}
             />
 
             <div className="text-xs uppercase px-4 mt-4 mb-1 text-slate-500">
-              Settings
+              সেটিংস
             </div>
             <NavItem
               href="/dashboard/volunteer/settings"
-              label="Account Settings"
+              label="অ্যাকাউন্ট সেটিংস"
               icon={FaCog}
               onClick={itemClick}
             />
@@ -431,30 +438,30 @@ export default function Sidebar({ variant = "desktop", onNavigate }) {
       </nav>
 
       <div className="mt-auto p-4 border-t border-slate-200">
-        <div className="text-xs text-slate-500 mb-2">Quick Stats</div>
+        <div className="text-xs text-slate-500 mb-2">দ্রুত পরিসংখ্যান</div>
         <div className="mt-2 space-y-2 text-sm">
           {isAdmin ? (
             <>
               <div className="flex items-center justify-between">
-                <span className="text-slate-600">Total Users</span>
+                <span className="text-slate-600">মোট ব্যবহারকারী</span>
                 <span className="px-2 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-semibold">
                   {statsLoading ? "-" : adminStats.users}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-600">Donors</span>
+                <span className="text-slate-600">রক্তদাতা</span>
                 <span className="px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold">
                   {statsLoading ? "-" : adminStats.donors}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-600">Requests</span>
+                <span className="text-slate-600">অনুরোধ</span>
                 <span className="px-2 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-semibold">
                   {statsLoading ? "-" : adminStats.requests}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-600">Volunteers</span>
+                <span className="text-slate-600">স্বেচ্ছাসেবক</span>
                 <span className="px-2 py-1 rounded-full bg-amber-100 text-amber-700 text-xs font-semibold">
                   {statsLoading ? "-" : adminStats.volunteers}
                 </span>
@@ -463,19 +470,19 @@ export default function Sidebar({ variant = "desktop", onNavigate }) {
           ) : isVolunteer ? (
             <>
               <div className="flex items-center justify-between">
-                <span className="text-slate-600">Events</span>
+                <span className="text-slate-600">ইভেন্ট</span>
                 <span className="px-2 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-semibold">
                   {statsLoading ? "-" : volunteerStats.events}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-600">Hours</span>
+                <span className="text-slate-600">ঘণ্টা</span>
                 <span className="px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold">
                   {statsLoading ? "-" : volunteerStats.hours}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-600">Campaigns</span>
+                <span className="text-slate-600">ক্যাম্পেইন</span>
                 <span className="px-2 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-semibold">
                   {statsLoading ? "-" : volunteerStats.campaigns}
                 </span>
@@ -484,25 +491,25 @@ export default function Sidebar({ variant = "desktop", onNavigate }) {
           ) : (
             <>
               <div className="flex items-center justify-between">
-                <span className="text-slate-600">Donations</span>
+                <span className="text-slate-600">দান</span>
                 <span className="px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold">
                   {statsLoading ? "-" : donorStats.donations}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-600">Appointments</span>
+                <span className="text-slate-600">নিয়োগ</span>
                 <span className="px-2 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-semibold">
                   {statsLoading ? "-" : donorStats.appointments}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-600">Requests</span>
+                <span className="text-slate-600">অনুরোধ</span>
                 <span className="px-2 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-semibold">
                   {statsLoading ? "-" : donorStats.requests}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-600">History</span>
+                <span className="text-slate-600">ইতিহাস</span>
                 <span className="px-2 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
                   {statsLoading ? "-" : donorStats.history}
                 </span>

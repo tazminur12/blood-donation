@@ -512,10 +512,25 @@ export default function DonorProfilePage() {
 
             {/* Name and Basic Info */}
             <div className="flex-1">
-              <h2 className="text-2xl font-bold text-slate-900 mb-2">
+              <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
                 {profile.name || "নাম নেই"}
+                {profile.isVerified && (
+                  <span className="inline-flex items-center" title="যাচাইকৃত সদস্য - Blue Badge">
+                    <FaCheckCircle className="text-blue-600 text-xl" />
+                  </span>
+                )}
               </h2>
               <div className="flex flex-wrap items-center gap-3">
+                {!profile.isVerified && (
+                  <a
+                    href="/member-application"
+                    className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-sky-100 text-sky-700 border border-sky-200 hover:bg-sky-200 transition-colors cursor-pointer"
+                    title="Blue Badge পেতে Member হন"
+                  >
+                    <FaUser className="mr-2" />
+                    Blue Badge পেতে Member হন
+                  </a>
+                )}
                 {profile.bloodGroup && (
                   <span
                     className={`inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold border ${

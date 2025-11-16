@@ -20,6 +20,8 @@ import {
   FaEye,
   FaEdit,
   FaEnvelope,
+  FaUserCheck,
+  FaCheck,
 } from "react-icons/fa";
 import Swal from "sweetalert2";
 
@@ -51,6 +53,10 @@ export default function AdminBloodRequestsPage() {
   const [locationData, setLocationData] = useState(null);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [updatingStatus, setUpdatingStatus] = useState(false);
+  const [showDonorModal, setShowDonorModal] = useState(false);
+  const [availableDonors, setAvailableDonors] = useState([]);
+  const [loadingDonors, setLoadingDonors] = useState(false);
+  const [assigningDonor, setAssigningDonor] = useState(false);
   const [stats, setStats] = useState({
     total: 0,
     pending: 0,
@@ -301,6 +307,108 @@ export default function AdminBloodRequestsPage() {
   const handleSearch = (e) => {
     e.preventDefault();
     loadRequests();
+  };
+
+  const loadAvailableDonors = async (bloodGroup) => {
+    if (!bloodGroup) return;
+    
+    try {
+      setLoadingDonors(true);
+      const res = await fetch("/api/admin/donors");
+      const data = await res.json();
+      
+      if (res.ok) {
+        // Filter donors by blood group and availability
+        const filtered = (data.donors || []).filter(
+          donor => donor.bloodGroup === bloodGroup && donor.isAvailable !== false
+        );
+        setAvailableDonors(filtered);
+      } else {
+        console.error("Error loading donors:", data);
+        setAvailableDonors([]);
+      }
+    } catch (error) {
+      console.error("Error loading donors:", error);
+      setAvailableDonors([]);
+    } finally {
+      setLoadingDonors(false);
+    }
+  };
+
+  const handleAssignDonor = async (donorEmail) => {
+    if (!selectedRequest || !donorEmail) return;
+
+    const result = await Swal.fire({
+      icon: "question",
+      title: "রক্তদাতা নির্ধারণ",
+      html: `<p>আপনি কি <strong>${selectedRequest.patientName}</strong> এর জন্য এই রক্তদাতাকে নির্ধারণ করতে চান?</p><p class="text-sm text-slate-600 mt-2">রক্তদাতার তথ্য Requester এর email এ পাঠানো হবে।</p>`,
+      showCancelButton: true,
+      confirmButtonText: "হ্যাঁ, নির্ধারণ করুন",
+      cancelButtonText: "বাতিল",
+      confirmButtonColor: "#10b981",
+      cancelButtonColor: "#ef4444",
+    });
+
+    if (!result.isConfirmed) {
+      return;
+    }
+
+    try {
+      setAssigningDonor(true);
+      const res = await fetch("/api/admin/requests/assign-donor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          requestId: selectedRequest.id,
+          donorEmail: donorEmail,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "সফল!",
+          text: data.message || "রক্তদাতা সফলভাবে নির্ধারণ করা হয়েছে এবং Requester এর email এ তথ্য পাঠানো হয়েছে",
+          confirmButtonText: "ঠিক আছে",
+          confirmButtonColor: "#10b981",
+          timer: 3000,
+          timerProgressBar: true,
+        });
+        loadRequests();
+        setSelectedRequest(null);
+        setShowDonorModal(false);
+        setAvailableDonors([]);
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "ত্রুটি",
+          text: data.error || "রক্তদাতা নির্ধারণ করতে ব্যর্থ হয়েছে",
+          confirmButtonText: "ঠিক আছে",
+          confirmButtonColor: "#ef4444",
+        });
+      }
+    } catch (error) {
+      console.error("Error assigning donor:", error);
+      Swal.fire({
+        icon: "error",
+        title: "ত্রুটি",
+        text: "রক্তদাতা নির্ধারণ করতে ব্যর্থ হয়েছে",
+        confirmButtonText: "ঠিক আছে",
+        confirmButtonColor: "#ef4444",
+      });
+    } finally {
+      setAssigningDonor(false);
+    }
+  };
+
+  const openDonorModal = (request) => {
+    setSelectedRequest(request);
+    setShowDonorModal(true);
+    loadAvailableDonors(request.bloodGroup);
   };
 
   if (status === "loading" || loading) {
@@ -844,12 +952,20 @@ export default function AdminBloodRequestsPage() {
               {/* Status Update Section */}
               {selectedRequest.status !== "fulfilled" && selectedRequest.status !== "cancelled" && (
                 <div className="border-t border-slate-200 pt-4 mt-4">
-                  <h3 className="font-semibold text-slate-900 mb-3">স্ট্যাটাস আপডেট করুন</h3>
+                  <h3 className="font-semibold text-slate-900 mb-3">অ্যাকশন</h3>
                   <div className="flex flex-wrap gap-2">
+                    <button
+                      onClick={() => openDonorModal(selectedRequest)}
+                      disabled={updatingStatus || assigningDonor}
+                      className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition disabled:opacity-50 flex items-center gap-2"
+                    >
+                      <FaUserCheck />
+                      <span>রক্তদাতা নির্ধারণ করুন</span>
+                    </button>
                     {selectedRequest.status !== "active" && (
                       <button
                         onClick={() => handleStatusUpdate(selectedRequest.id, "active")}
-                        disabled={updatingStatus}
+                        disabled={updatingStatus || assigningDonor}
                         className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50 flex items-center gap-2"
                       >
                         {updatingStatus ? (
@@ -860,24 +976,10 @@ export default function AdminBloodRequestsPage() {
                         <span>সক্রিয় করুন</span>
                       </button>
                     )}
-                    {selectedRequest.status !== "fulfilled" && (
-                      <button
-                        onClick={() => handleStatusUpdate(selectedRequest.id, "fulfilled")}
-                        disabled={updatingStatus}
-                        className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition disabled:opacity-50 flex items-center gap-2"
-                      >
-                        {updatingStatus ? (
-                          <FaSpinner className="animate-spin" />
-                        ) : (
-                          <FaCheckCircle />
-                        )}
-                        <span>পূরণ করুন</span>
-                      </button>
-                    )}
                     {selectedRequest.status !== "cancelled" && (
                       <button
                         onClick={() => handleStatusUpdate(selectedRequest.id, "cancelled")}
-                        disabled={updatingStatus}
+                        disabled={updatingStatus || assigningDonor}
                         className="px-4 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition disabled:opacity-50 flex items-center gap-2"
                       >
                         {updatingStatus ? (
@@ -901,6 +1003,151 @@ export default function AdminBloodRequestsPage() {
               </button>
               <button
                 onClick={() => setSelectedRequest(null)}
+                className="px-4 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition"
+              >
+                বন্ধ করুন
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Donor Selection Modal */}
+      {showDonorModal && selectedRequest && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-slate-200 flex items-center justify-between sticky top-0 bg-white z-10">
+              <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                <FaUserCheck className="text-purple-600" />
+                রক্তদাতা নির্বাচন করুন
+              </h2>
+              <button
+                onClick={() => {
+                  setShowDonorModal(false);
+                  setAvailableDonors([]);
+                }}
+                className="text-slate-400 hover:text-slate-600 text-2xl"
+              >
+                &times;
+              </button>
+            </div>
+            <div className="p-6">
+              <div className="mb-4 p-4 bg-slate-50 rounded-lg">
+                <p className="text-sm text-slate-600 mb-1">রোগীর নাম:</p>
+                <p className="font-semibold text-slate-900">{selectedRequest.patientName}</p>
+                <p className="text-sm text-slate-600 mt-2 mb-1">রক্তের গ্রুপ:</p>
+                <span
+                  className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold border ${
+                    bloodGroupColors[selectedRequest.bloodGroup] || bloodGroupColors["Unknown"]
+                  }`}
+                >
+                  <FaTint className="mr-1" />
+                  {selectedRequest.bloodGroup}
+                </span>
+              </div>
+
+              {loadingDonors ? (
+                <div className="flex items-center justify-center py-12">
+                  <FaSpinner className="h-8 w-8 animate-spin text-purple-600" />
+                  <span className="ml-3 text-slate-600">রক্তদাতা লোড হচ্ছে...</span>
+                </div>
+              ) : availableDonors.length === 0 ? (
+                <div className="text-center py-12">
+                  <FaUser className="h-12 w-12 text-slate-300 mx-auto mb-4" />
+                  <p className="text-slate-600 text-lg">কোন উপলব্ধ রক্তদাতা পাওয়া যায়নি</p>
+                  <p className="text-slate-500 text-sm mt-2">
+                    রক্তের গ্রুপ: <strong>{selectedRequest.bloodGroup}</strong>
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <p className="text-sm text-slate-600 mb-4">
+                    <strong>{availableDonors.length}</strong> জন উপলব্ধ রক্তদাতা পাওয়া গেছে
+                  </p>
+                  {availableDonors.map((donor) => (
+                    <div
+                      key={donor.id}
+                      className="border border-slate-200 rounded-lg p-4 hover:border-purple-300 hover:shadow-sm transition"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h3 className="text-lg font-semibold text-slate-900">
+                              {donor.name || "নাম নেই"}
+                            </h3>
+                            <span
+                              className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold border ${
+                                bloodGroupColors[donor.bloodGroup] || bloodGroupColors["Unknown"]
+                              }`}
+                            >
+                              {donor.bloodGroup}
+                            </span>
+                          </div>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-slate-600">
+                            {donor.mobile && (
+                              <div className="flex items-center gap-2">
+                                <FaPhone className="text-purple-600" />
+                                <a
+                                  href={`tel:${donor.mobile}`}
+                                  className="hover:text-purple-600 hover:underline"
+                                >
+                                  {donor.mobile}
+                                </a>
+                              </div>
+                            )}
+                            {donor.email && (
+                              <div className="flex items-center gap-2">
+                                <FaEnvelope className="text-purple-600" />
+                                <span>{donor.email}</span>
+                              </div>
+                            )}
+                            {donor.division && (
+                              <div className="flex items-center gap-2">
+                                <FaMapMarkerAlt className="text-purple-600" />
+                                <span>
+                                  {donor.division}
+                                  {donor.district && `, ${donor.district}`}
+                                  {donor.upazila && `, ${donor.upazila}`}
+                                </span>
+                              </div>
+                            )}
+                            {donor.totalDonations > 0 && (
+                              <div className="flex items-center gap-2">
+                                <FaCheckCircle className="text-emerald-600" />
+                                <span>{donor.totalDonations} বার রক্তদান করেছেন</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => handleAssignDonor(donor.email)}
+                          disabled={assigningDonor}
+                          className="ml-4 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition disabled:opacity-50 flex items-center gap-2 whitespace-nowrap"
+                        >
+                          {assigningDonor ? (
+                            <>
+                              <FaSpinner className="animate-spin" />
+                              <span>নির্ধারণ করা হচ্ছে...</span>
+                            </>
+                          ) : (
+                            <>
+                              <FaCheck />
+                              <span>নির্ধারণ করুন</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="p-6 border-t border-slate-200 flex justify-end">
+              <button
+                onClick={() => {
+                  setShowDonorModal(false);
+                  setAvailableDonors([]);
+                }}
                 className="px-4 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition"
               >
                 বন্ধ করুন

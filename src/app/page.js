@@ -3,6 +3,7 @@ import Banner from "@/components/Banner";
 import Featured from "@/components/Featured";
 import RecentRequests from "@/components/RecentRequests";
 import OurServices from "@/components/OurServices";
+import VolunteerSection from "@/components/VolunteerSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -14,6 +15,9 @@ export default function Home() {
         <RecentRequests />
         <Featured />
         <OurServices />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <VolunteerSection />
+        </div>
       </main>
       <Footer />
     </div>
