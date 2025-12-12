@@ -37,6 +37,10 @@ export const metadata = {
     "G.S.R.S",
   ],
   authors: [{ name: "গোবিন্দগঞ্জ স্বেচ্ছায় রক্তদান সংগঠন" }],
+  icons: {
+    icon: "/Favicon/hypertension.png",
+    apple: "/Favicon/hypertension.png",
+  },
   openGraph: {
     title: "গোবিন্দগঞ্জ স্বেচ্ছায় রক্তদান সংগঠন | Blood Donation Management System",
     description: "একটি সম্পূর্ণ ডিজিটাল রক্তদান ব্যবস্থাপনা প্ল্যাটফর্ম - রক্তদাতা, প্রশাসক এবং স্বেচ্ছাসেবীদের জন্য",
